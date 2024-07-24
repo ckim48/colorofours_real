@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% extends 'header.html' %}
+    {% block myprofile %}
+    <style>
+        .receipt-list{
+            list-style: none;
+            padding: 0
+        }
+        .receipt-item{
+            border: 2px solid #F3A614;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #FCF8F0;
+        }
+        .receipt-item img{
+            width: 100%;
+        }
+        .receipt-item .status-accept{
+            color:forestgreen;
+            font-weight: 1000;
+        }
+        .receipt-item .status-pending{
+            color:dimgray;
+            font-weight: 1000;
+        }
+        .receipt-item .status-reject{
+            color:red;
+            font-weight: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">My Submissions</h1>
+        <div class="mycontainer">
+            <h2 class="mb-4">My Donations</h2>
+            <div class="row px-2">
+                {% for receipt in receipts %}
+                    <div class="col-md-3 receipt-item">
+                        <img src="{{url_for('uploaded_file', filename=receipt['filepath'].split('/')[-1]) }}">
+                        <p class="mt-5"> <strong>Amount:</strong> {{ receipt['price'] }}</p>
+                        <p><strong>Status:</strong>
+                        {% if receipt['status']  == "accepted" %}
+                           <span class="status-accept"> {{ receipt['status'] }} </span>
+                        {% elif receipt['status']  == "pending" %}
+                            <span class="status-pending"> {{ receipt['status'] }} </span>
+                        {% elif receipt['status']  == "rejected" %}
+                            <span class="status-reject"> {{ receipt['status'] }} </span>
+                        {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    <div class="mycontainer">
+        <h2 class="mt-5 mb-4">My Paintings</h2>
+                    <div class="row px-2">
+                {% for image in images %}
+                    <div class="col-md-3 receipt-item">
+                        <img src="{{url_for('uploaded_file', filename=image['filepath'].split('/')[-1]) }}">
+                        <p class="mt-5"> <strong>Title:</strong> {{ image['title'] }}</p>
+                        <p><strong>Status:</strong>
+                        {% if image['status']  == "accepted" %}
+                           <span class="status-accept"> {{ image['status'] }} </span>
+                        {% elif image['status']  == "pending" %}
+                            <span class="status-pending"> {{ image['status'] }} </span>
+                        {% elif image['status']  == "rejected" %}
+                            <span class="status-reject"> {{ image['status'] }} </span>
+                        {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+
+    </div>
+</body>
+    {% endblock %}
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+        {% extends 'header.html' %}
+    {% block admin %}
+    <style>
+        .mycontainer {
+            background-color: #fff;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary, .btn-secondary {
+            border: none;
+            margin: 10px 0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .text-center {
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+        .img-preview {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .img-preview div {
+            text-align: center;
+        }
+        .img-preview img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .img-caption {
+            text-align: center;
+            font-weight: bold;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="mycontainer">
+    <h1 class="text-center">Upload Image</h1>
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="image">Choose Image</label>
+            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+        </div>
+        <button type="button" class="btn btn-secondary btn-block" id="previewButton">Preview</button>
+        <button type="submit" class="btn btn-primary btn-block">Upload</button>
+    </form>
+    <div class="img-preview" id="imgPreview">
+        <!-- Previews will be displayed here -->
+    </div>
+</div>
+</div>
+<script>
+    const previewUrl = "{{ url_for('preview') }}";
+    const uploadImageUrl = "{{ url_for('upload_image') }}";
+
+    document.getElementById('previewButton').addEventListener('click', function(event) {
+        const formData = new FormData(document.getElementById('uploadForm'));
+
+        fetch(previewUrl, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Image preview and processing failed. Please try again.');
+            } else {
+                const imgPreviewDiv = document.getElementById('imgPreview');
+                imgPreviewDiv.innerHTML = `
+                    <div>
+                        <img src="${data.originalImage}" alt="Original Image">
+                        <div class="img-caption">Original</div>
+                    </div>
+                    <div>
+                        <img src="${data.protImage}" alt="Protanopia Image">
+                        <div class="img-caption">Protanopia</div>
+                    </div>
+                    <div>
+                        <img src="${data.deutImage}" alt="Deuteranopia Image">
+                        <div class="img-caption">Deuteranopia</div>
+                    </div>
+                    <div>
+                        <img src="${data.tritImage}" alt="Tritanopia Image">
+                        <div class="img-caption">Tritanopia</div>
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Image preview and processing failed. Please try again.');
+        });
+    });
+
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch(uploadImageUrl, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Image upload and processing failed. Please try again.');
+            } else {
+                alert('Image uploaded successfully.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Image upload and processing failed. Please try again.');
+        });
+    });
+</script>
+{% endblock %}
+
+</body>
+
+</html>

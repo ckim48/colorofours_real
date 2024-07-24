@@ -1,0 +1,484 @@
+{% include 'header.html' %}
+<style>
+/* Main Timeline Container */
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+/* The vertical line */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: #ddd;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
+
+/* Container for each timeline item */
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
+/* Left timeline items */
+.timeline-item.left {
+  left: 0;
+}
+
+/* Right timeline items */
+.timeline-item.right {
+  left: 50%;
+}
+
+/* Add arrows to the left container */
+.timeline-item.left::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 15px;
+  width: 0;
+  z-index: 1;
+  right: -15px;
+  border: medium solid black;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent white;
+}
+
+/* Add arrows to the right container */
+.timeline-item.right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 15px;
+  width: 0;
+  z-index: 1;
+  left: -15px;
+  border: medium solid black;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+/* The circles on the timeline */
+.timeline-marker {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -12px;
+  background-color: white;
+  border: 4px solid #FF9F55;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-item.right .timeline-marker {
+  left: -13px;
+}
+
+/* Content of each timeline item */
+.timeline-content {
+  padding: 20px 30px;
+  background-color: white;
+  position: relative;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* On hover, apply a slight transformation */
+.timeline-content:hover {
+  transform: translateY(-10px);
+}
+
+/* The title of each timeline event */
+.timeline-content h2 {
+  font-size: 1.5em;
+  margin: 0 0 10px;
+  color: #333;
+}
+
+/* The description of each timeline event */
+.timeline-content p {
+  margin: 0;
+  color: #666;
+}
+
+@media screen and (max-width: 768px) {
+  /* For smaller screens, stack the timeline items vertically */
+  .timeline::after {
+    left: 90px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  .timeline-item.left::before,
+  .timeline-item.right::before {
+    left: 60px;
+    border: medium solid white;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
+  }
+
+  .timeline-item.right {
+    left: 0%;
+  }
+
+  .timeline-item.right::before {
+    left: 60px;
+  }
+
+  .timeline-marker {
+    left: 15px;
+  }
+}
+</style>
+
+<section id="home-section" class="hero">
+  <div class="home-slider js-fullheight my-carousel">
+    <div class="slider-item js-fullheight">
+      <div class="overlay"></div>
+      <div class="container-fluid p-0">
+        <div class="row d-md-flex no-gutters slider-text js-fullheight align-items-center justify-content-end" data-scrollax-parent="true">
+          <div class="order-md-last img js-fullheight" style="background-color: white; background-image:url(../static/images/trafficd.jpg);"></div>
+          <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+            <div class="text text-white">
+              <span class="subheading2 text-white">Explore, Understand, Donate.</span>
+              <div class="horizontal">
+                <h1 class="mb-4 mt-3 text-white"><span>Color of Ours</span></h1>
+                <p class="text-white">Break the stereotypical standards of vision by viewing the world in 'their' colors.<p>
+                <p><a href="#experience" class="btn btn-primary px-5 py-3 mt-3">Discover Now</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="home-section" class="ftco-section bg-light">
+  <div class="container">
+    <div id="experience" class="row justify-content-center mb-3 pb-3">
+      <div class="col-md-12 heading-section text-center ftco-animate">
+        <h2 class="mb-4">How Color Blinds See the World</h2>
+        <p>Types of Color Blindness</p>
+        <ul class="types">
+          <li class="mb-2"><span class="font-weight-bold">Protanopia:</span> absence of RED cones; difficult to distinguish shades of RED, YELLOW, and GREEN</li>
+          <li class="mb-2"><span class="font-weight-bold">Deuteranopia:</span> absence of GREEN cones; difficult to distinguish shades of RED, YELLOW, and GREEN</li>
+          <li><span class="font-weight-bold">Tritanopia:</span> absence of BLUE cones; difficult to distinguish shades of BLUE and YELLOW</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="container px-5">
+          <div class="container">
+            <div id="myCarousel" class="carousel slide mt-5" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="item active">
+                  <img src="../static/images/image8.jpg" alt="Los Angeles" style="width:100%;">
+                  <div class="carousel-caption">
+                    <p class="carousel-caption2">Normal</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="container px-5">
+          <div class="container">
+            <div id="demo" class="carousel slide carousel-fade mt-5" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="../static/images/image8p.jpg" alt="Los Angeles" class="d-block" style="width:100%">
+                  <div class="carousel-caption">
+                    <p class="carousel-caption2">Protanopia</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="../static/images/image8d.jpg" alt="Chicago" class="d-block" style="width:100%">
+                  <div class="carousel-caption">
+                    <p class="carousel-caption2">Deuteranopia</p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="../static/images/image8t.jpg" alt="New York" class="d-block" style="width:100%">
+                  <div class="carousel-caption">
+                    <p class="carousel-caption2">Tritanopia</p>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section ftco-no-pb ftco-no-pt">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
+        <img src="../static/images/chart.jpg" class="img-fluid aboutimg">
+      </div>
+      <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
+        <div class="heading-section-bold mb-4 mt-md-5">
+          <div class="ml-md-0">
+            <h2 class="mb-4 mymx">What does Color of Ours do exactly?</h2>
+          </div>
+        </div>
+        <div class="pb-md-5 mymx">
+          <p>Color of Ours aims to raise awareness of color blindness, allowing people to see under the lenses who have limited color spectrums. Not only does this experience present difficulties of being color blind, but it also allows one to step out of the conventional way of viewing the world.</p>
+          <p>Do skies always have to be blue? Is the sun always yellow? Exploring artworks in numbers of unusual perspectives will provide an opportunity to redefine standards of color in our world.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+     <h2 class="mb-4">How Color Blinds See the World</h2>
+  <div class="timeline">
+    <div class="timeline-item left">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <h2>Title 1</h2>
+        <p>Description for the first event.</p>
+      </div>
+    </div>
+    <div class="timeline-item right">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <h2>Title 2</h2>
+        <p>Description for the second event.</p>
+      </div>
+    </div>
+    <div class="timeline-item left">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <h2>Title 3</h2>
+        <p>Description for the third event.</p>
+      </div>
+    </div>
+    <div class="timeline-item right">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <h2>Title 4</h2>
+        <p>Description for the fourth event.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</section>
+
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-3 pb-3">
+      <div class="col-md-12 heading-section text-center ftco-animate">
+        <h2 class="mb-4">Paintings</h2>
+        <p>To view the paintings in the perspectives of different colorblindness or to read an in-depth description about the artworks, press "Check Now".</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm col-md-6 col-lg ftco-animate">
+        <div class="product">
+          <a href="#" class="img-prod"><img class="img-fluid product-img2" src="../static/images/normal/girl.jpg" alt="Colorlib Template">
+            <p class="imtext">Normal</p>
+          </a>
+          <div class="overlay"></div>
+          <div class="text py-3 px-3">
+            <h3 class="text-center"><a href="#">Renaissance replica</a></h3>
+            <p class="bottom-area d-flex px-3">
+              <a href="more1.html" class="buy-now text-center py-2">Check now<span></span></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm col-md-6 col-lg ftco-animate">
+        <div class="product">
+          <a href="#" class="img-prod"><img class="img-fluid product-img2" src="../static/images/normal/plant.jpg" alt="Colorlib Template">
+            <p class="imtext">Normal</p>
+          </a>
+          <div class="overlay"></div>
+          <div class="text py-3 px-3">
+            <h3 class="text-center"><a href="#">Plant - Pop art style</a></h3>
+            <p class="bottom-area d-flex px-3">
+              <a href="more2.html" class="buy-now text-center py-2">Check now<span></span></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm col-md-6 col-lg ftco-animate">
+        <div class="product">
+          <a href="#" class="img-prod"><img class="img-fluid product-img2" src="../static/images/normal/scene.jpg" alt="Colorlib Template">
+            <p class="imtext">Normal</p>
+          </a>
+          <div class="overlay"></div>
+          <div class="text py-3 px-3">
+            <h3 class="text-center"><a href="#">Monet Replica</a></h3>
+            <p class="bottom-area d-flex px-3">
+              <a href="more3.html" class="buy-now text-center py-2">Check now<span></span></a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm col-md-6 col-lg ftco-animate">
+        <div class="product">
+          <a href="shop.html" class="img-prod"><img class="img-fluid product-img2" src="../static/images/normal/apple.jpg" alt="Colorlib Template">
+            <p class="imtext">Normal</p>
+          </a>
+          <div class="overlay"></div>
+          <div class="text py-3 px-3">
+            <h3 class="text-center"><a href="shop.html">Apple from Oil Pastel</a></h3>
+            <p class="bottom-area d-flex px-3">
+              <a href="more4.html" class="buy-now text-center py-2">Check now<span></span></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <center>
+      <p><a href="shop.html" class="btn btn-primary more px-5 py-3 mt-3" data-aos="fade-right">More</a></p>
+    </center>
+  </div>
+</section>
+
+<footer class="ftco-footer ftco-section bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="mouse2 mt-5">
+        <a href="#" class="mouse-icon">
+          <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <div class="ftco-footer-widget mt-5">
+          <center>
+            <h2 class="ftco-heading-2">Color of Ours</h2>
+            <p>Break the stereotypical standards of vision by viewing the world in 'their' colors</p>
+          </center>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="ftco-footer-widget mt-5">
+          <center>
+            <h2 class="ftco-heading-2">Have a Question?</h2>
+            <div class="block-23">
+              <ul>
+                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">colorofours@gmail.com</span></a></li>
+              </ul>
+            </div>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="../static/js/popper.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery.easing.1.3.js"></script>
+<script src="../static/js/jquery.waypoints.min.js"></script>
+<script src="../static/js/jquery.stellar.min.js"></script>
+<script src="../static/js/owl.carousel.min.js"></script>
+<script src="../static/js/jquery.magnific-popup.min.js"></script>
+<script src="../static/js/aos.js"></script>
+<script src="../static/js/jquery.animateNumber.min.js"></script>
+<script src="../static/js/bootstrap-datepicker.js"></script>
+<script src="../static/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="../static/js/google-map.js"></script>
+<script src="../static/js/main.js"></script>
+<script>
+  AOS.init();
+</script>
+<script>
+  var imageHead = document.getElementsByClassName("paintImg");
+  var imtext = document.getElementsByClassName("imtext");
+  var turn = 0;
+  var images = [
+    [
+      "../static/images/protanopia/girl_protanopia.jpg",
+      "../static/images/deuteranopia/girl_deuteranopia.jpg",
+      "../static/images/tritanopia/girl_tritanopia.jpg",
+      "../static/images/normal/girl.jpg",
+    ],
+    [
+      "../static/images/protanopia/plant_protanopia.jpg",
+      "../static/images/deuteranopia/plant_deuteranopia.jpg",
+      "../static/images/tritanopia/plant_tritanopia.jpg",
+      "../static/images/normal/plant.jpg",
+    ],
+    [
+      "../static/images/protanopia/scene_protanopia.jpg",
+      "../static/images/deuteranopia/scene_deuteranopia.jpg",
+      "../static/images/tritanopia/scene_tritanopia.jpg",
+      "../static/images/normal/scene.jpg",
+    ],
+    [
+      "../static/images/protanopia/apple_protanopia.jpg",
+      "../static/images/deuteranopia/apple_deuteranopia.jpg",
+      "../static/images/tritanopia/apple_tritanopia.jpg",
+      "../static/images/normal/apple.jpg",
+    ]
+  ];
+
+  for (let i = 0; i < images.length; i++) {
+    for (let turn = 0; turn < 4; turn++) {
+      setInterval(function() {
+        imageHead[i].src = images[i][turn];
+        turn = turn + 1;
+        if (turn == images[i].length) {
+          turn = 0;
+        }
+        if (turn == 0) {
+          imtext[i].innerText = "Normal";
+          imtext[i].style.left = 35 + '%';
+        } else if (turn == 1) {
+          imtext[i].innerText = "Protanopia";
+          imtext[i].style.left = 30 + '%';
+        } else if (turn == 2) {
+          imtext[i].innerText = "Deuteranopia";
+          imtext[i].style.left = 30 + '%';
+        } else if (turn == 3) {
+          imtext[i].innerText = "Tritanopia";
+          imtext[i].style.left = 35 + '%';
+        }
+      }, 3000);
+    }
+  }
+</script>
