@@ -29,6 +29,11 @@ for directory in processed_dirs:
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['PROCESSED_FOLDER'] = PROCESSED_FOLDER
 
+def isAdmin():
+    if session['user'] == "testtest":
+        return True
+    return False
+
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
@@ -65,7 +70,10 @@ def index():
     isLogin = False
     if 'user' in session:
         isLogin = True
-    return render_template('index.html', isLogin=isLogin)
+    Admin = False
+    if isAdmin():
+        Admin = True
+    return render_template('index.html', isLogin=isLogin, Admin=Admin)
 
 @app.route('/about')
 def about():
@@ -81,13 +89,21 @@ def logout():
 
 @app.route('/upload')
 def upload():
-    if 'user' in session:
-        return render_template('upload.html')
-    return redirect(url_for('login'))
+    isLogin = False
+    if 'user' not in session:
+        isLogin = False
+    else:
+        isLogin = True
+    return render_template('upload.html',isLogin = isLogin)
 
 @app.route('/donate')
 def donate():
-    return render_template('Donate.html')
+    isLogin = False
+    if 'user' not in session:
+        isLogin = False
+    else:
+        isLogin = True
+    return render_template('Donate.html', isLogin = isLogin)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -185,23 +201,32 @@ def admin():
     conn = get_db_connection()
     images = conn.execute('SELECT * FROM images WHERE status = "pending"').fetchall()
     receipts = conn.execute('SELECT * FROM receipts WHERE status = "pending"').fetchall()
+
+    customers = conn.execute('SELECT * FROM receipts WHERE status = "accepted"').fetchall()
     conn.close()
-    return render_template('admin.html', images=images, receipts=receipts, isLogin = isLogin)
+    return render_template('admin.html', images=images, receipts=receipts, isLogin = isLogin, customers=customers)
 
 
 
 @app.route('/myprofile')
 def myprofile():
+    isLogin = False
+
     if 'user' not in session:
         return redirect(url_for('login'))
+    else:
+        isLogin = True
 
     username = session['user']
     conn = get_db_connection()
+
+    user = conn.execute('SELECT Username, Name, Email, Phone FROM Users WHERE Username = ?', (username,)).fetchone()
+
     receipts = conn.execute('Select * From receipts WHERE username =?', (username,)).fetchall()
 
     paintings = conn.execute('Select * From images WHERE username =?', (username,)).fetchall()
     conn.close()
-    return render_template('myprofile.html', receipts=receipts, images=paintings)
+    return render_template('myprofile.html', receipts=receipts, images=paintings, user=user, isLogin = isLogin)
 
 
 

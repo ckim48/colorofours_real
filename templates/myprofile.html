@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <meta charset="UTF-8">
     <title>Title</title>
     {% extends 'header.html' %}
@@ -31,10 +32,52 @@
             color:red;
             font-weight: 1000;
         }
+        .profile-section{
+            border: 2px solid #F3A614;
+            border-radius: 5px;
+            padding: 20px;
+            background-color:  #FCF8F0;
+            margin-bottom: 30px;
+        }
+        .profile-section h2{
+            color: #333;
+            font-size: 1.5em;
+            border-bottom:  2px solid #F3A614;
+            padding-bottom: 10px;
+            margin-bottom:  20px;
+        }
+        .profile-detail i{
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <h1 class="text-center mt-5">My Profile</h1>
+        <div class="profile-section">
+            <h2 class="mb-4">User Information</h2>
+            <div class="profile-detail">
+                <i class="bi bi-person-circle"></i>
+                <p><strong>Username:</strong> {{user.Username}} </p>
+            </div>
+            <div class="profile-detail">
+                <i class="bi bi-person-badge"></i>
+                <p><strong>Name:</strong> {{user.Name}} </p>
+            </div>
+            <div class="profile-detail">
+                <i class="bi bi-envelope"></i>
+                <p><strong>Email:</strong> {{user.Email}} </p>
+            </div>
+            <div class="profile-detail">
+                <i class="bi bi-phone"></i>
+                <p><strong>Phone:</strong> {{user.Phone}} </p>
+            </div>
+
+        </div>
+
+
         <h1 class="text-center mt-5">My Submissions</h1>
         <div class="mycontainer">
             <h2 class="mb-4">My Donations</h2>

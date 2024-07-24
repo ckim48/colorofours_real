@@ -35,6 +35,14 @@
             background-color: #0056b3;
             color: #fff;
         }
+        .navbar-dark .navbar-nav .nav-link{
+            color:black;
+            font-size:12px;
+        }
+        .navbar-dark .navbar-nav .nav-link:hover{
+            color:darkgray;
+        }
+
     </style>
 
 </head>
@@ -49,12 +57,21 @@
 
             <div class="collapse navbar-collapse ms-3" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href={{url_for('index')}}" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="{{url_for('about')}}" class="nav-link">Information</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="nav-item"><a href="{{url_for('about')}}" class="nav-link">Information</a></li>
+                            <li class="nav-item"><a href="{{url_for('donate')}}" class="nav-link">Donate</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item"><a href="{{url_for('shop')}}" class="nav-link">Painting</a></li>
                     <li class="nav-item"><a href="{{url_for('upload')}}" class="nav-link">Upload</a></li>
-                    <li class="nav-item"><a href="{{url_for('donate')}}" class="nav-link">Donate</a></li>
                     {% if isLogin %}
+                        <li class="nav-item"><a href="{{url_for('myprofile')}}" class="nav-link">My Profile</a></li>
+                        {% if Admin %}
+                        <li class="nav-item"><a href="{{url_for('admin')}}" class="nav-link">Admin</a></li>
+                        {% endif %}
                         <li class="nav-item"><a href="{{url_for('logout')}}" class="nav-link btn-login">Logout</a></li>
                     {% else %}
                         <li class="nav-item"><a href="{{url_for('login')}}" class="nav-link btn-login">Login</a></li>
