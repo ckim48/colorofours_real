@@ -12,13 +12,17 @@
             padding: 0
         }
         .receipt-item{
+            margin-top: 25px;
             border: 2px solid #F3A614;
             border-radius: 5px;
             padding: 20px;
             background-color: #FCF8F0;
         }
         .receipt-item img{
-            width: 100%;
+            display:block;
+            width: 200px;
+            height: 200px;
+            margin: auto;
         }
         .receipt-item .status-accept{
             color:forestgreen;
@@ -101,20 +105,22 @@
         </div>
     <div class="mycontainer">
         <h2 class="mt-5 mb-4">My Paintings</h2>
-                    <div class="row px-2">
+                    <div class="row">
                 {% for image in images %}
-                    <div class="col-md-3 receipt-item">
-                        <img src="{{url_for('uploaded_file', filename=image['filepath'].split('/')[-1]) }}">
-                        <p class="mt-5"> <strong>Title:</strong> {{ image['title'] }}</p>
-                        <p><strong>Status:</strong>
-                        {% if image['status']  == "accepted" %}
-                           <span class="status-accept"> {{ image['status'] }} </span>
-                        {% elif image['status']  == "pending" %}
-                            <span class="status-pending"> {{ image['status'] }} </span>
-                        {% elif image['status']  == "rejected" %}
-                            <span class="status-reject"> {{ image['status'] }} </span>
-                        {% endif %}
-                        </p>
+                    <div class="col-md-3">
+                        <div class="receipt-item">
+                            <img src="{{url_for('uploaded_file', filename=image['filepath'].split('/')[-1]) }}">
+                            <p class="mt-5"> <strong>Title:</strong> {{ image['title'] }}</p>
+                            <p><strong>Status:</strong>
+                            {% if image['status']  == "accepted" %}
+                               <span class="status-accept"> {{ image['status'] }} </span>
+                            {% elif image['status']  == "pending" %}
+                                <span class="status-pending"> {{ image['status'] }} </span>
+                            {% elif image['status']  == "rejected" %}
+                                <span class="status-reject"> {{ image['status'] }} </span>
+                            {% endif %}
+                            </p>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
