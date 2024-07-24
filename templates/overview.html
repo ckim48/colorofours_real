@@ -1,113 +1,189 @@
-{% include 'header.html' %}
-<body>
+{% extends 'header.html' %}
+{% block overview %}
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center">
+</head>
+  <body class="goto-here">
 
-      <div class="logo me-auto">
-        <h1><a href="index.html">Color of Ours</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-<!--          <a href="index.html"><img src="assets/img/logo.png" alt="no-image" class="img-fluid"></a> -->
+    <div class="hero-wrap hero-bread" style="background: url('../static/images/bckg.jpg') center;">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 text-center">
+  <h1 class="mb-0 bread text-white">About Color Blindness</h1>
+
+
+          </div>
+        </div>
       </div>
-
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto" href="index.html">Home</a></li>
-          <li class="dropdown nav-link scrollto active"><a>Information<i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="overview.html">Overview</a></li>
-              <li><a href="cause.html">Causes</a></li>
-               <li><a href="difficulties.html">Difficulties</a></li>
-                <li><a href="treatments.html">Treatments</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-            </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="Program.html">Explore Colorblind</a></li>
-          <li><a class="nav-link scrollto" href="Donate.html">Donate</a></li>
-          <li><a class="nav-link scrollto" href="index.html#news">News </a></li>
-          <li><a class="nav-link scrollto" href="index.html#contact">Contact</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-<!--       <div class="header-social-links d-flex align-items-center">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
-      </div> -->
-
     </div>
-  </header><!-- End Header -->
-    <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="container text-center text-md-left" data-aos="fade-up">
 
-      <h1>Overview</h1>
+    <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
+			<div class="container">
+				<div class="row">
+            <div class="container">
 
-    </div>
-</section>
-  <div class="container">
-          <h3 class="mt-5 mx-5">What is color blindness</h3>
-          <p class="mt-5 mx-5"> Colorblindedness is the decreased ability to see and differentiate colors. For most of the times, color blinds have trouble with specific parts of the color spectrum. The human eye sees color through wavelengths of light processed in the retina. Within the retina, photoreceptors called rods and cones are responsible for passing the information received from the wavelengths of light to the brain. While rods are sensitive to the wavelengths of light responsible for night vision, cones are responsible for color vision. There are three types of cones – red, green, and blue cones, each with different light-sensitive pigments that respond to a specific point of sensitivity to light wavelengths. In instances of normal color vision, this process would give the ability to see all colors by using the cones sensitive to the three red, green, or blue wavelengths of light at the right point of sensitivity. Color blindness will occur when the cones fail to respond to the variations and points of sensitivity in wavelengths appropriately. When one or more of the cones cannot respond properly to send the right message to the brain, we are unable to see the colors correlated to those cones.  </p>
 
-          <h3 class="mt-5 mx-5">Different types of color blindness</h3>
 
-          <ul class="mx-5">
+          <h3 class="mt-5" data-aos="zoom-in">WHAT IS COLOR BLINDNESS?</h3>
+
+          <p class="mt-5"> Color blindness is the decreased ability to see and differentiate colors, often within a specific part of the color spectrum.
+            <p class="mt-5"> The human eye sees color through wavelengths of light processed in the <span class = "font-bold">retina</span>. Within the retina, photoreceptors called <span class = "font-bold">rods and cones</span> are responsible for passing the information received from the wavelengths of light to the brain. While rods are sensitive to the wavelengths of light responsible for night vision, cones are responsible for color vision. There are three types of cones – <span class = "font-red">red</span>, <span class = "font-green"> green </span>, and <span class = "font-blue">blue </span> cones, each with different light-sensitive pigments that respond to a specific point of sensitivity to light wavelengths. </p>
+            <p class="mt-5"> In instances of normal color vision, this process would give the ability to see all colors by using the cones sensitive to the three red, green, or blue wavelengths of light at the right point of sensitivity. Color blindness will occur when the cones fail to <span class = "font-bold">respond to the variations and points of sensitivity in wavelengths appropriately </span>. When one or more of the cones cannot respond properly to send the right message to the brain, we are unable to see the colors correlated to those cones.  </p>
+<!--                                       <center>
+                           <img src="images/information1.PNG" class="img-fluid aboutimg" alt="">
+                          <p class="caption mb-5"></p>tree diagram of how colorblind genes are inherited
+                        </center> -->
+
+
+                                                  <center>
+                           <img src="images/EnChroma-Normal-vs-Color-Blind-Cone-Graphic.webp" class="img-fluid aboutimg mt-3" alt="">
+                          <p class="caption mt-2">comparison of cones between people with normal vision and colorblinds</p>
+                        </center>
+           <h3 class="mt-5" data-aos="zoom-in">WHAT IS THE CAUSE OF COLOR BLINDESS?</h3>
+
+           <ul class="mt-5">
+         <li>
+         <h5><span class= "font-bold">Inheritance</span></h5>
+                      <p><span class = "font-bold"> Red-green color blindness (e.g.protanopia and deuteranopia) </span>is an <span class = "font-bold"> X-linked recessive condition </span>, meaning it occurs due to a genetic mutation of the X chromosome. Because males have a XY chromosome pair while females have a XX chromosome pair, males are more vulnerable to color blindness. Statistically about 1 in 12 males are color blinded or color weak. 1 in 100 females show color blind symptoms.</p>
+</li>
+<li>
+            <h5><span class= "font-bold">Diseases</span></h5>
+                      <p> Some conditions that can cause color deficits are sickle cell anemia, diabetes, macular degeneration, Alzheimer's disease, multiple sclerosis, glaucoma, Parkinson's disease, chronic alcoholism and leukemia. One eye may be more affected than the other, and the color deficit may get better if the underlying disease can be treated. </p>
+</li>
+<li>
+            <h5><span class= "font-bold">Others</span></h5>
+                       <p> Other causes of color blindness include but are not limited to certain medications that treat autoimmune diseases, heart problems, or nervous disorders, or exposures to chemicals like carbon disulfide or fertilizers. Sometimes aging may deteriorate your abilities to see colors too. </p>
+                    </li>
+                </ul>
+
+
+
+          <h3 class="mt-5" data-aos="zoom-in" >WHAT ARE THE DIFFERENT TYPES OF COLOR BLINDNESS?</h3>
+
+          <ul class="mt-3">
             <li>
-              <h5 class="mt-5">Protanopia</h5>
-              <p>color-blindness resulting from insensitivity to red light, causing confusion of greens, reds, and yellows. It is hereditary and is the most common form of color-blindness.</p>
+              <h5 class="mt-5"><span class= "font-bold">Protanopia</span></h5>
+              <p>color-blindness resulting from insensitivity to <span class= "font-red"> red light </span>, causing confusion of <span class = "font-bold"> greens, reds, and yellows </span>. It is hereditary and is the most common form of color-blindness.</p>
             </li>
                         <li>
-              <h5>Deuteranopia</h5>
-                            <p>color-blindness resulting from insensitivity to red light, causing confusion of greens, reds, and yellows. It is hereditary and is the most common form of color-blindness.</p>
+              <h5><span class= "font-bold">Deuteranopia</span></h5>
+                            <p>color-blindness resulting from insensitivity to <span class= "font-green">green light</span>, causing confusion of <span class = "font-bold">greens, reds, and yellows </span>.</p>
             </li>
                         <li>
-                            <h5>Tritanopia</h5>
-                                          <p>color-blindness resulting from insensitivity to red light, causing confusion of greens, reds, and yellows. It is hereditary and is the most common form of color-blindness.</p>
-            </li>
+                            <h5><span class= "font-bold">Tritanopia</span></h5>
+                                          <p>color-blindness resulting from insensitivity to <span class= "font-blue">blue light</span>, causing confusion of <span class = "font-bold">blues and yellows</span>. </p>
+                        </li>
           </ul>
+                                    <center>
+                           <img src="../static/images/color.jpg" class="img-fluid aboutimg" alt="">
+                          <p class="caption">visualizations of different colorblind types</p>
+                        </center>
+
+</section>
+
+    <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
+      <div class="container">
+        <div class="row">
+            <div class="container">
+          <h3 class="mt-5" data-aos="zoom-in" >WHAT IS LIVING WITH COLOR BLINDNESS LIKE? </h3>
+
+          <p class="mt-3">  Simple daily tasks are made more difficult when you have color blindness. Just getting dressed in the morning can pose a problem for choosing colors that match. Even driving can be problem as the red and green colors of a traffic light will be in the wrong position. </p>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                          <center>
+                           <img src="../static/images/traffic.jpg" class="img-fluid aboutimg" alt="">
+                          <p class="caption">traffic light: normal vision</p>
+                        </center>
+                       </div>
+                        <div class="col-md-2">
+                          <center>
+                          <p class="arrow2">&#8594</p>
+                        </center>
+                       </div>
+                      <div class="col-md-5">
+                        <center>
+                           <img src="../static/images/trafficd.jpg" class="img-fluid aboutimg" alt="">
+                          <p class="caption">traffic light: protanopia vision</p>
+                          </center>
+                       </div>
+
+                    </div>
+
+          <p class="mt-3"> Cooking can be frustrating for anyone with color blindness. If you’re unable to differentiate between colors it can be difficult to determine when some foods are cooked or when fruits are ripe.</p>
+                    <div class="row">
+                        <div class="col-md-5">
+                          <center>
+                           <img src="../static/images/about_what.jpg" class="img-fluid aboutimg2" alt="">
+                          <p class="caption">variety of food: normal vision</p>
+                        </center>
+                       </div>
+                        <div class="col-md-2">
+                          <center>
+                          <p class="arrow2">&#8594</p>
+                        </center>
+                       </div>
+                      <div class="col-md-5">
+                        <center>
+                           <img src="../static/images/about_whatp.jpg" class="img-fluid aboutimg2" alt="">
+                          <p class="caption">variety of food: protanopia vision</p>
+                          </center>
+                       </div>
+
+                    </div>
+                    <p class="mt-3">
+          When it comes to career choices, there are some professions that may not be an option for you as they depend on accurately perceiving color. This includes professions such as graphic design, piloting an airplane, or any other career where it’s essential that colors are correctly identified. People who are color blind quickly learn how to compensate for their vision deficiencies. </p>
+
+
+
+
+
 
 
  </div>
 
 
+<footer class="ftco-footer ftco-section bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="mouse2 mt-5">
+            <a href="#" class="mouse-icon">
+              <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md">
+            <div class="ftco-footer-widget mt-5">
+              <center>
+                <h2 class="ftco-heading-2">Color of Ours </h2>
+                <p>Break the stereotypical standards of vision by viewing the world in 'their' colors</p>
+            </center>
+            </div>
+          </div>
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-
-    <div class="container d-md-flex py-4">
-
-      <div class="me-md-auto text-center text-md-start">
-        <div class="copyright">
-          &copy; Copyright <strong><span>Logn</span></strong>. All Rights Reserved
+          <div class="col-md">
+            <div class="ftco-footer-widget mt-5">
+              <center>
+                <h2 class="ftco-heading-2">Have a Question?</h2>
+              <div class="block-23">
+                <ul>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">colorofours@gmail.com</span></a></li>
+                </ul>
+              </div>
+            </center>
+            </div>
+          </div>
         </div>
 
       </div>
-<!--       <div class="social-links text-center text-md-right pt-3 pt-md-0">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div> -->
-    </div>
-  </footer><!-- End Footer -->
+    </footer>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
 
+        </div>
+      </div>
+    </section>
 </body>
-
+{% endblock %}
 </html>

@@ -1,117 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'header.html' %}
+{% block donate %}
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Color of Ours</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="../static/css/style.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-</head>
 
 <body>
+    <div class="hero-wrap hero-bread" style="background: url('../static/images/bckg.jpg') center;">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 text-center">
+               <h1 class="mb-0 bread text-white">Donate</h1>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center">
+    <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
+			<div class="container">
+				<div class="row">
 
-      <div class="logo me-auto">
-        <h1><a href="index.html">Color of Ours</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-<!--          <a href="index.html"><img src="assets/img/logo.png" alt="no-image" class="img-fluid"></a> -->
+               <h3 class="mt-5 ps-4 pe-4">Solution for colorblind</h3>
+
+
+          <p class="mt-3 ps-4 pe-4">  <span class = "font-bold"> EnChroma lenses </span> were developed in the early 2000's by glass scientist and UC Berkeley educated mathematition to ease the lives of people with color blindess through innovative lense technology.</p>
+
+          <p class="mt-3  ps-4 pe-4"> Its technology <span class = "font-bold">filters out wavelengths of light </span> that are primary causes of color deficiency. The <span class = "font-bold">M and L cones</span> are altered to maximize the color differentiation, eliminating the "confusion line" of a color blind individual.</p>
+
+          <p class="mt-3  ps-4 pe-4">
+         The lens technology increases <span class = "font-bold">contrast between the red and green color signals</span>, which reduces the effects of color deficiency. Thus, color blinds can take a step closer to experiencing our world the way we do. </p>
+
+      </div>
+        <h2 class="mt-5 underline  ps-4 pe-4"><i class="fa-solid fa-circle-dollar-to-slot"></i> Donation</h2>
+
+          <div class="row">
+           <div class="col-md-8">
+            <p class="mt-3  ps-4 pe-4">
+                Click on the link below to donate EnChroma glasses for low-income colorblinds that are unable to afford the glasses due to expensive costs. The donation will provide life-changing experiences for the colorblinds, and help them through numerous small and big difficulties they face in their daily lives.
+            </p>
+
+
+                <a class="mt-2  ps-4 pe-4" href="https://www.gofundme.com/manage/color-of-ours-help-to-colorblind-community"><button type="button" class="btn btn-donate mb-5">Help for colorblindness</button></a>
+            </div>
+                <!-- <br> -->
+            <div class="col-md-4">
+            <img src="../static/images/donate.jpg" class="img-fluid donateimg mb-5  ms-3" alt="">
+
+        </div>
       </div>
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto" href="index.html">Home</a></li>
-          <li class="dropdown nav-link scrollto active"><a>Information<i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="overview.html">Overview</a></li>
-              <li><a href="cause.html">Causes</a></li>
-               <li><a href="difficulties.html">Difficulties</a></li>
-                <li><a href="treatments.html">Treatments</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-            </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="Program.html">Explore Colorblind</a></li>
-          <li><a class="nav-link scrollto" href="Donate.html">Donate</a></li>
-          <li><a class="nav-link scrollto" href="index.html#news">News </a></li>
-          <li><a class="nav-link scrollto" href="index.html#contact">Contact</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-
     </div>
-  </header><!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  <section class="d-flex flex-column justify-content-center align-items-center">
-    <div class="container text-center text-md-left" data-aos="fade-up">
-<!--       <h1 class="mt-5">Donate</h1>
-      <p class="donate-p"> <i class="fa-solid fa-quote-left donate-i"></i> Donate for the colorblindness people <i class="fa-solid fa-quote-right donate-i"></i> </p>
- -->
-<!--       <a href="https://www.gofundme.org" class="btn-get-started scrollto">Donate!</a>
- -->    </div>
-  </section>
+		</section>
 
-<div class="container">
-    <center>
-     <h1 class="mt-5"><i class="fa-solid fa-circle-dollar-to-slot"></i> Donate</h1>
-      <p class="mt-5 mx-5">
-          Helping others feels good. When you donate to a charity that is important to you, you not only help them continue their vital work, you're also improving your emotional wellbeing, a win-win situation! Experience lifelong benefits when you donate your time. </p> 
 
-          <a href="https://www.gofundme.org"><button type="button" class="btn btn-secondary">Help for colorblindness</button></a>
-          <br>
-                              <img src="assets/img/volunteer.png" class="img-fluid" alt="">
-</div>
 
-  <!-- ======= Footer ======= -->
-<!--   <footer id="footer">
-    <div class="container d-md-flex py-4">
 
-      <div class="me-md-auto text-center text-md-start">
-        <div class="copyright">
-          &copy; Copyright <strong><span>Logn</span></strong>. All Rights Reserved
+<footer class="ftco-footer ftco-section bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="mouse2 mt-5">
+            <a href="#" class="mouse-icon">
+              <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md">
+            <div class="ftco-footer-widget mt-5">
+              <center>
+                <h2 class="ftco-heading-2">Color of Ours </h2>
+                <p>Break the stereotypical standards of vision by viewing the world in 'their' colors</p>
+            </center>
+            </div>
+          </div>
+
+          <div class="col-md">
+            <div class="ftco-footer-widget mt-5">
+              <center>
+                <h2 class="ftco-heading-2">Have a Question?</h2>
+              <div class="block-23">
+                <ul>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">colorofours@gmail.com</span></a></li>
+                </ul>
+              </div>
+            </center>
+            </div>
+          </div>
         </div>
 
-    </div>
-  </footer> -->
+      </div>
+    </footer>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
 
 </body>
-
+{% endblock %}
 </html>
