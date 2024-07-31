@@ -166,10 +166,7 @@
                     <img src="{{ url_for('uploaded_file', filename=image['filepath'].split('/')[-1]) }}" alt="Original Image">
                     <p class="text-center">Normal</p>
                 </div>
-<div class="col-12 col-md-3 image-container">
-    <img src="{{ url_for('static', filename='images/normal/' + image.username + '_n_' + image.filepath.split('/')[-1]) }}" alt="Original Image">
-    <p class="text-center">Normal</p>
-</div>
+
 <div class="col-12 col-md-3 image-container">
     <img src="{{ url_for('static', filename='images/protanopia/' + image.username + '_p_' + image.filepath.split('/')[-1]) }}" alt="Protanopia Image">
     <p class="text-center">Protanopia</p>
