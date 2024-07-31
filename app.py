@@ -252,13 +252,12 @@ def upload_image():
     image.save(filepath)
 
     conn = get_db_connection()
-    conn.execute('INSERT INTO images (title, author, description, artwork_type, filepath, username, status, upload_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                 (title, author, description, artwork_type, filepath, session['user'], 'pending', datetime.datetime.now()))
+    conn.execute('INSERT INTO images (title, author, description, type, filepath, username, status, upload_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                 (title, author, description, artwork_type, filepath, session['user'], 'pending', datetime.now()))
     conn.commit()
     conn.close()
 
     return jsonify({'success': True})
-
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
