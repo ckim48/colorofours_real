@@ -109,6 +109,21 @@ h1 {
     color: white;
     text-decoration: none;
 }
+
+.btn-more {
+    background-color:  #ffa45c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-more:hover {
+    background-color: #138496;
+}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
@@ -120,25 +135,26 @@ h1 {
         <p>Click the “+” symbol at the right corner to share your own artwork to the community.</p>
 
         <!-- Sort Controls -->
-        <div class="d-flex justify-content-end mb-4">
-            <form class="form-inline">
-                <label class="mr-2" for="sort_by">Sort by:</label>
-                <select class="form-control mr-2" id="sort_by" name="sort_by" onchange="this.form.submit()">
-                    <option value="upload_date" {% if sort_by == 'upload_date' %}selected{% endif %}>Date</option>
-                    <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title</option>
-                </select>
-                <select class="form-control" id="sort_order" name="sort_order" onchange="this.form.submit()">
-                    <option value="asc" {% if sort_order == 'asc' %}selected{% endif %}>Ascending</option>
-                    <option value="desc" {% if sort_order == 'desc' %}selected{% endif %}>Descending</option>
-                </select>
-            </form>
-        </div>
+<!--        <div class="d-flex justify-content-end mb-4">-->
+<!--            <form class="form-inline">-->
+<!--                <label class="mr-2" for="sort_by">Sort by:</label>-->
+<!--                <select class="form-control mr-2" id="sort_by" name="sort_by" onchange="this.form.submit()">-->
+<!--                    <option value="upload_date" {% if sort_by == 'upload_date' %}selected{% endif %}>Date</option>-->
+<!--                    <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title</option>-->
+<!--                </select>-->
+<!--                <select class="form-control" id="sort_order" name="sort_order" onchange="this.form.submit()">-->
+<!--                    <option value="asc" {% if sort_order == 'asc' %}selected{% endif %}>Ascending</option>-->
+<!--                    <option value="desc" {% if sort_order == 'desc' %}selected{% endif %}>Descending</option>-->
+<!--                </select>-->
+<!--            </form>-->
+<!--        </div>-->
 
         {% for image in images %}
         <div class="painting p-4">
             <h1 class="text-center">{{ image.title }}</h1>
+            <p class="description">By: {{ image.author }}</p>
             <p class="description">{{ image.description }}</p>
-            <p class="description" data-upload-date="{{ image.upload_date }}"></p>
+<!--            <p class="description" data-upload-date="{{ image.upload_date }}"></p>-->
             <div class="row">
                 <div class="col-12 col-md-3 image-container">
                     <img src="{{ url_for('static', filename='images/normal/' + image.username + '_n_' + image.filepath.split('/')[-1]) }}" alt="Original Image">
@@ -157,6 +173,14 @@ h1 {
                     <p class="text-center">Tritanopia</p>
                 </div>
             </div>
+            <div class="text-center mt-3">
+                <a href="{{ url_for('more', image_id=image.id) }}" class="btn btn-more">More</a>
+            </div>
+            {% if admin %}
+            <div class="text-center mt-3">
+                <button class="btn btn-danger delete-button" data-image-id="{{ image.id }}">Delete</button>
+            </div>
+            {% endif %}
         </div>
         {% endfor %}
 
@@ -177,7 +201,7 @@ h1 {
     <a href="{{ url_for('upload') }}" class="btn-add">
         <i class="bi bi-plus-lg"></i>
     </a>
-</body>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.description[data-upload-date]').forEach(function (element) {
@@ -186,7 +210,34 @@ h1 {
                 var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2);
                 element.textContent = 'Uploaded At: ' + formattedDate;
             });
+
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-button').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var imageId = this.getAttribute('data-image-id');
+                    if (confirm('Are you sure you want to delete this painting?')) {
+                        fetch(`/delete_image/${imageId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            }
+                        }).then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Reload the page to reflect the changes
+                                window.location.reload();
+                            } else {
+                                alert('Failed to delete the painting.');
+                            }
+                        }).catch(error => {
+                            console.error('Error:', error);
+                            alert('Failed to delete the painting.');
+                        });
+                    }
+                });
+            });
         });
     </script>
+</body>
 {% endblock %}
 </html>

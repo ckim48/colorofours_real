@@ -34,6 +34,8 @@ def isAdmin():
         return True
     return False
 
+
+
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
@@ -57,7 +59,7 @@ def shop():
 
     sort_by = request.args.get('sort_by', 'upload_date')
     sort_order = request.args.get('sort_order', 'desc')
-
+    admin = isAdmin()
     if sort_by not in ['upload_date', 'title']:
         sort_by = 'upload_date'
     if sort_order not in ['asc', 'desc']:
@@ -71,9 +73,33 @@ def shop():
 
     total_pages = (total_images + per_page - 1) // per_page
 
-    return render_template('shop.html', isLogin=isLogin, images=images, page=page, total_pages=total_pages, sort_by=sort_by, sort_order=sort_order)
+    return render_template('shop.html', isLogin=isLogin, images=images, page=page, total_pages=total_pages, sort_by=sort_by, sort_order=sort_order,admin=admin)
 
+@app.route('/delete_image/<int:image_id>', methods=['POST'])
+def delete_image(image_id):
+    if 'user' not in session or not isAdmin():
+        return jsonify({'success': False, 'message': 'Unauthorized access'})
 
+    conn = get_db_connection()
+    image = conn.execute('SELECT * FROM images WHERE id = ?', (image_id,)).fetchone()
+
+    if image is None:
+        conn.close()
+        return jsonify({'success': False, 'message': 'Image not found'})
+
+    # Delete the image files from the filesystem if necessary
+    try:
+        os.remove(os.path.join(app.static_folder, 'images/normal', image['username'] + '_n_' + image['filepath'].split('/')[-1]))
+        os.remove(os.path.join(app.static_folder, 'images/protanopia', image['username'] + '_p_' + image['filepath'].split('/')[-1]))
+        os.remove(os.path.join(app.static_folder, 'images/deuteranopia', image['username'] + '_d_' + image['filepath'].split('/')[-1]))
+        os.remove(os.path.join(app.static_folder, 'images/tritanopia', image['username'] + '_t_' + image['filepath'].split('/')[-1]))
+    except Exception as e:
+        print(f"Error deleting files: {e}")
+
+    conn.execute('DELETE FROM images WHERE id = ?', (image_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({'success': True})
 
 
 @app.route('/')
@@ -85,6 +111,21 @@ def index():
     if isAdmin():
         Admin = True
     return render_template('index.html', isLogin=isLogin, Admin=Admin)
+@app.route('/more/<int:image_id>')
+def more(image_id):
+    isLogin = False
+    if 'user' in session:
+        isLogin = True
+    Admin = False
+    if isAdmin():
+        Admin = True
+
+    conn = get_db_connection()
+    image = conn.execute('SELECT * FROM images WHERE id = ?', (image_id,)).fetchone()
+    conn.close()
+
+
+    return render_template('more.html', isLogin=isLogin, Admin=Admin, image=image)
 
 @app.route('/about')
 def about():
@@ -194,31 +235,30 @@ def preview():
 
 @app.route('/upload_image', methods=['POST'])
 def upload_image():
+    if 'user' not in session:
+        return jsonify({'error': 'Unauthorized access'})
+
     title = request.form['title']
+    author = request.form['author']
     description = request.form['description']
+    artwork_type = request.form['type']
     image = request.files['image']
-    username = session["user"] if "user" in session else "test"  # Use session to get the username
-    upload_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    if image and title and description:
-        filename = secure_filename(image.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        image.save(filepath)
+    if not image:
+        return jsonify({'error': 'No image uploaded'})
 
-        changeImage(filepath, username, filename)
+    filename = secure_filename(image.filename)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    image.save(filepath)
 
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO images (title, description, filepath, username, upload_date, status)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ''', (title, description, filepath, username, upload_date, 'pending'))
-        conn.commit()
-        conn.close()
+    conn = get_db_connection()
+    conn.execute('INSERT INTO images (title, author, description, artwork_type, filepath, username, status, upload_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                 (title, author, description, artwork_type, filepath, session['user'], 'pending', datetime.datetime.now()))
+    conn.commit()
+    conn.close()
 
-        return jsonify({'message': 'Image uploaded successfully!'})
-    else:
-        return jsonify({'error': 'Please fill out all fields and upload an image.'}), 400
+    return jsonify({'success': True})
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
