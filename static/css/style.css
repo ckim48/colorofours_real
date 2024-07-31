@@ -8086,8 +8086,8 @@ h1, h2, h3, h4, h5,
       padding-bottom: 10px; } }
   .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
     font-size: 10px;
-    padding-top: 0.9rem;
-    padding-bottom: 0.9rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
     padding-left: 18px;
     padding-right: 18px;
     font-weight: 400;
@@ -8208,7 +8208,7 @@ h1, h2, h3, h4, h5,
     .ftco-navbar-light.scrolled .nav-link {
       padding-top: 0.9rem !important;
       padding-bottom: 0.9rem !important;
-      color: #000000 !important; }
+      color: #000000; }
       .ftco-navbar-light.scrolled .nav-link.active {
         color: #ffa45c !important; }
     .ftco-navbar-light.scrolled.awake {

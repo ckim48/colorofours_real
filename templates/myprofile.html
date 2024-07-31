@@ -7,60 +7,108 @@
     {% extends 'header.html' %}
     {% block myprofile %}
     <style>
-        .receipt-list{
-            list-style: none;
-            padding: 0
-        }
-        .receipt-item{
-            margin-top: 25px;
-            border: 2px solid #F3A614;
-            border-radius: 5px;
-            padding: 20px;
-            background-color: #FCF8F0;
-        }
-        .receipt-item img{
-            display:block;
-            width: 200px;
-            height: 200px;
-            margin: auto;
-        }
-        .receipt-item .status-accept{
-            color:forestgreen;
-            font-weight: 1000;
-        }
-        .receipt-item .status-pending{
-            color:dimgray;
-            font-weight: 1000;
-        }
-        .receipt-item .status-reject{
-            color:red;
-            font-weight: 1000;
-        }
-        .profile-section{
-            border: 2px solid #F3A614;
-            border-radius: 5px;
-            padding: 20px;
-            background-color:  #FCF8F0;
-            margin-bottom: 30px;
-        }
-        .profile-section h2{
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f9fc;
             color: #333;
-            font-size: 1.5em;
-            border-bottom:  2px solid #F3A614;
-            padding-bottom: 10px;
-            margin-bottom:  20px;
         }
-        .profile-detail i{
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .profile-section {
+            border: 1px solid #e1e1e1;
+            border-radius: 10px;
+            width: 67%;
+            padding: 40px;
+            background-color: #fff;
+            margin-bottom: 90px;
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .profile-section h2 {
+            color: #333;
+
+            font-size: 1.8em;
+            border-bottom: 2px solid #ffa45c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .profile-detail {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .profile-detail i {
+            font-size: 1.5em;
+            margin-right: 15px;
+            color: #ffa45c;
+        }
+        .profile-detail p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        .receipt-list {
+            list-style: none;
+            padding: 0;
+        }
+        .receipt-item {
+            margin-top: 25px;
+            border: 2px solid #ffa45c;
+            border-radius: 10px;
+            padding: 20px;
+            height:480px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .receipt-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 200px;
+            max-height: 450px;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+        .receipt-item .status-accept {
+            color: #28a745;
+            font-weight: 700;
+        }
+        .receipt-item .status-pending {
+            color: #ffc107;
+            font-weight: 700;
+        }
+        .receipt-item .status-reject {
+            color: #dc3545;
+            font-weight: 700;
+        }
+        .mycontainer {
+            margin-top: 50px;
+        }
+        .mycontainer h2 {
+            color: #333;
+            font-size: 1.8em;
+/*            border-bottom: 2px solid #4a90e2;*/
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .mycontainer .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .mycontainer .col-md-3 {
+            flex: 1;
+            max-width: calc(25% - 20px);
+            min-width: 250px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center mt-5">My Profile</h1>
-        <div class="profile-section">
+        <div class="profile-section mx-auto mt-4">
             <h2 class="mb-4">User Information</h2>
             <div class="profile-detail">
                 <i class="bi bi-person-circle"></i>
@@ -78,24 +126,22 @@
                 <i class="bi bi-phone"></i>
                 <p><strong>Phone:</strong> {{user.Phone}} </p>
             </div>
-
         </div>
-
 
         <h1 class="text-center mt-5">My Submissions</h1>
         <div class="mycontainer">
-            <h2 class="mb-4">My Donations</h2>
+            <h2 class="mb-1">My Donations</h2>
             <div class="row px-2">
                 {% for receipt in receipts %}
                     <div class="col-md-3 receipt-item">
                         <img src="{{url_for('uploaded_file', filename=receipt['filepath'].split('/')[-1]) }}">
                         <p class="mt-5"> <strong>Amount:</strong> {{ receipt['price'] }}</p>
                         <p><strong>Status:</strong>
-                        {% if receipt['status']  == "accepted" %}
+                        {% if receipt['status'] == "accepted" %}
                            <span class="status-accept"> {{ receipt['status'] }} </span>
-                        {% elif receipt['status']  == "pending" %}
+                        {% elif receipt['status'] == "pending" %}
                             <span class="status-pending"> {{ receipt['status'] }} </span>
-                        {% elif receipt['status']  == "rejected" %}
+                        {% elif receipt['status'] == "rejected" %}
                             <span class="status-reject"> {{ receipt['status'] }} </span>
                         {% endif %}
                         </p>
@@ -103,20 +149,20 @@
                 {% endfor %}
             </div>
         </div>
-    <div class="mycontainer">
-        <h2 class="mt-5 mb-4">My Paintings</h2>
-                    <div class="row">
+        <div class="mycontainer mb-5">
+            <h2 class="mt-5 mb-1">My Paintings</h2>
+            <div class="row">
                 {% for image in images %}
                     <div class="col-md-3">
                         <div class="receipt-item">
                             <img src="{{url_for('uploaded_file', filename=image['filepath'].split('/')[-1]) }}">
                             <p class="mt-5"> <strong>Title:</strong> {{ image['title'] }}</p>
                             <p><strong>Status:</strong>
-                            {% if image['status']  == "accepted" %}
+                            {% if image['status'] == "accepted" %}
                                <span class="status-accept"> {{ image['status'] }} </span>
-                            {% elif image['status']  == "pending" %}
+                            {% elif image['status'] == "pending" %}
                                 <span class="status-pending"> {{ image['status'] }} </span>
-                            {% elif image['status']  == "rejected" %}
+                            {% elif image['status'] == "rejected" %}
                                 <span class="status-reject"> {{ image['status'] }} </span>
                             {% endif %}
                             </p>
@@ -124,9 +170,8 @@
                     </div>
                 {% endfor %}
             </div>
+        </div>
     </div>
-
-    </div>
-</body>
     {% endblock %}
+</body>
 </html>

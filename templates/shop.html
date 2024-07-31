@@ -85,7 +85,32 @@ h1 {
     margin-bottom: 30px;
     color: #333;
 }
+
+.btn-add {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #ffa45c;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #ffa45c;
+    transform: scale(1.1);
+    color: white;
+    text-decoration: none;
+}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div class="container mt-md-5">
@@ -115,7 +140,7 @@ h1 {
         </div>
         {% endfor %}
 
-        <div class="pagination">
+        <div class="pagination mb-5">
             {% if page > 1 %}
                 <a href="{{ url_for('shop', page=page-1) }}">Previous</a>
             {% endif %}
@@ -129,6 +154,8 @@ h1 {
             {% endif %}
         </div>
     </div>
+    <a href="{{ url_for('upload') }}" class="btn-add">
+<i class="bi bi-plus-lg"></i>    </a>
 </body>
 {% endblock %}
 </html>

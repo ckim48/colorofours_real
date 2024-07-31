@@ -7,7 +7,12 @@
   margin: 0 auto;
   padding: 40px 0;
 }
-
+#timeline h2{
+    font-size: 40px;
+    font-weight: 600;
+    color: #000000;
+  margin-bottom: 50px !important;
+}
 /* The vertical line */
 .timeline::after {
   content: '';
@@ -262,9 +267,9 @@
   </div>
 </section>
 
-<section>
+<section id="timeline">
   <div class="container">
-     <h2 class="mb-4">How Color Blinds See the World</h2>
+     <h2 class="mb-4 mymx">How Color Blinds See the World</h2>
   <div class="timeline">
     <div class="timeline-item left">
       <div class="timeline-marker"></div>
@@ -319,7 +324,7 @@
           <div class="text py-3 px-3">
             <h3 class="text-center"><a href="#">Renaissance replica</a></h3>
             <p class="bottom-area d-flex px-3">
-              <a href="more1.html" class="buy-now text-center py-2">Check now<span></span></a>
+              <a href="{{url_for('shop')}}" class="buy-now text-center py-2">Check now<span></span></a>
             </p>
           </div>
         </div>

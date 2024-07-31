@@ -28,7 +28,7 @@
         }
         .btn-register {
             border-radius: 10px;
-            background-color: #17a2b8;
+            background-color: #ffa45c;
             color: white;
             font-size: 18px;
             padding: 10px 20px;
@@ -36,6 +36,7 @@
         }
         .btn-register:hover {
             background-color: #138496;
+            color:white;
         }
         h1 {
             font-size: 36px;
@@ -71,10 +72,10 @@
                 return false;
             }
 
-            if (!phonePattern.test(phone)) {
-                alert('Please enter a valid phone number (10 digits).');
-                return false;
-            }
+//            if (!phonePattern.test(phone)) {
+//                alert('Please enter a valid phone number (10 digits).');
+//                return false;
+//            }
 
             if (password !== repassword) {
                 alert('Passwords do not match.');

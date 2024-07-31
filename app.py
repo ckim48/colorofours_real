@@ -30,7 +30,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['PROCESSED_FOLDER'] = PROCESSED_FOLDER
 
 def isAdmin():
-    if session['user'] == "testtest":
+    if session.get('user',0) == "testtest":
         return True
     return False
 
@@ -55,7 +55,7 @@ def shop():
         offset = (page - 1) * per_page
 
         conn = get_db_connection()
-        images = conn.execute('SELECT * FROM images WHERE status = "accepted" LIMIT ? OFFSET ?',
+        images = conn.execute('SELECT * FROM images WHERE status = "accepted" ORDER BY upload_date DESC LIMIT ? OFFSET ?',
                               (per_page, offset)).fetchall()
         total_images = conn.execute('SELECT COUNT(*) FROM images WHERE status = "accepted"').fetchone()[0]
         conn.close()
@@ -64,6 +64,7 @@ def shop():
 
         return render_template('shop.html', isLogin=isLogin, images=images, page=page, total_pages=total_pages)
     return render_template('login.html', isLogin=isLogin)
+
 
 @app.route('/')
 def index():
@@ -121,8 +122,36 @@ def login():
             flash("Invalid username or password", 'danger')
     return render_template('login.html')
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        repassword = request.form['repassword']
+        fullname = request.form['fullname']
+        email = request.form['email']
+        phone = request.form['phone']
+
+        if password != repassword:
+            flash('Passwords do not match', 'danger')
+            return redirect(url_for('register'))
+
+        conn = get_db_connection()
+        user_exists = conn.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
+
+        if user_exists:
+            flash('Username already exists', 'danger')
+            conn.close()
+            return redirect(url_for('register'))
+
+        conn.execute('INSERT INTO users (username, password, name, email, phone) VALUES (?, ?, ?, ?, ?)',
+                     (username, password, fullname, email, phone))
+        conn.commit()
+        conn.close()
+
+        flash('Registration successful! Please login.', 'success')
+        return redirect(url_for('login'))
+
     return render_template('register.html')
 
 @app.route('/preview', methods=['POST'])
@@ -350,4 +379,4 @@ def reject_receipt(receipt_id):
     return redirect(url_for('admin'))
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=8000)
