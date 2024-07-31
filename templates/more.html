@@ -64,8 +64,11 @@
             </div>
 
             <div class="col-8">
-                <h3>{{ image['title'] }}</h3>
-                <p class="price"><span>{{ image['username'] }}</span></p>
+                <h3>Title: {{ image['title'] }}</h3>
+                <h3>Date: {{ image['upload_date'] }}</h3>
+                <h3>Author: {{ image['author'] }}</h3>
+                <h3>Type: {{ image['type'] }}</h3>
+                <p class="price"><span>Upload User: {{ image['username'] }}</span></p>
                 <p>{{ image['description'] }}</p>
 
                 <div>
