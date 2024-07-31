@@ -116,14 +116,29 @@ h1 {
     <div class="container mt-md-5">
         <div class="page-title">Gallery of Paintings</div> <!-- Page title added here -->
         <p>This page features a collection of various artworks under the lens of three types of colorblindness, protanopia, deuteranopia, and tritanopia. </p>
-          <p>Click “more” for an in-depth look of each painting.
-</p>
-  <p>Click the “+” symbol at the right corner to share your own artwork to the community.
-</p>
+        <p>Click “more” for an in-depth look of each painting.</p>
+        <p>Click the “+” symbol at the right corner to share your own artwork to the community.</p>
+
+        <!-- Sort Controls -->
+        <div class="d-flex justify-content-end mb-4">
+            <form class="form-inline">
+                <label class="mr-2" for="sort_by">Sort by:</label>
+                <select class="form-control mr-2" id="sort_by" name="sort_by" onchange="this.form.submit()">
+                    <option value="upload_date" {% if sort_by == 'upload_date' %}selected{% endif %}>Date</option>
+                    <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title</option>
+                </select>
+                <select class="form-control" id="sort_order" name="sort_order" onchange="this.form.submit()">
+                    <option value="asc" {% if sort_order == 'asc' %}selected{% endif %}>Ascending</option>
+                    <option value="desc" {% if sort_order == 'desc' %}selected{% endif %}>Descending</option>
+                </select>
+            </form>
+        </div>
+
         {% for image in images %}
         <div class="painting p-4">
             <h1 class="text-center">{{ image.title }}</h1>
             <p class="description">{{ image.description }}</p>
+            <p class="description" data-upload-date="{{ image.upload_date }}"></p>
             <div class="row">
                 <div class="col-12 col-md-3 image-container">
                     <img src="{{ url_for('static', filename='images/normal/' + image.username + '_n_' + image.filepath.split('/')[-1]) }}" alt="Original Image">
@@ -147,20 +162,31 @@ h1 {
 
         <div class="pagination mb-5">
             {% if page > 1 %}
-                <a href="{{ url_for('shop', page=page-1) }}">Previous</a>
+                <a href="{{ url_for('shop', page=page-1, sort_by=sort_by, sort_order=sort_order) }}">Previous</a>
             {% endif %}
 
             {% for p in range(1, total_pages + 1) %}
-                <a href="{{ url_for('shop', page=p) }}" class="{{ 'active' if p == page else '' }}">{{ p }}</a>
+                <a href="{{ url_for('shop', page=p, sort_by=sort_by, sort_order=sort_order) }}" class="{{ 'active' if p == page else '' }}">{{ p }}</a>
             {% endfor %}
 
             {% if page < total_pages %}
-                <a href="{{ url_for('shop', page=page+1) }}">Next</a>
+                <a href="{{ url_for('shop', page=page+1, sort_by=sort_by, sort_order=sort_order) }}">Next</a>
             {% endif %}
         </div>
     </div>
     <a href="{{ url_for('upload') }}" class="btn-add">
-<i class="bi bi-plus-lg"></i>    </a>
+        <i class="bi bi-plus-lg"></i>
+    </a>
 </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.description[data-upload-date]').forEach(function (element) {
+                var dateStr = element.getAttribute('data-upload-date');
+                var date = new Date(dateStr);
+                var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2);
+                element.textContent = 'Uploaded At: ' + formattedDate;
+            });
+        });
+    </script>
 {% endblock %}
 </html>
