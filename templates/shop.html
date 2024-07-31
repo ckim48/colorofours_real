@@ -1,134 +1,254 @@
-{% extends 'header.html' %}
-{% block shop %}
-<style>
-.painting {
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    margin-bottom: 30px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery of Paintings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    {% extends 'header.html' %}
+    {% block shop %}
+    <style>
+        .painting {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-.painting:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
+        .painting:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
 
-h1 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #333;
-}
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
 
-.description {
-    font-size: 1rem;
-    color: #777;
-    margin-bottom: 20px;
-    text-align: center;
-}
+        .description {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-.image-container {
-    margin-bottom: 20px;
-    overflow: hidden;
-    position: relative;
-}
+        .image-container {
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
 
-.image-container img {
-    border-radius: 5px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-}
+        .image-container img {
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            height: auto;  /* Ensure images are properly scaled */
+        }
 
-.image-container:hover img {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+        .image-container:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
 
-.image-container p {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: #555;
-    text-align: center;
-}
+        .image-container p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #555;
+            text-align: center;
+        }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
 
-.pagination a {
-    color: #555;
-    padding: 10px 20px;
-    margin: 0 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-}
+        .pagination a {
+            color: #555;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-.pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-}
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
 
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-    color: #333;
-}
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+            color: #333;
+        }
 
-.page-title {
-    text-align: center;
-    font-size: 2rem;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    color: #333;
-}
-</style>
+        .page-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .btn-add {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ffa45c;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-add:hover {
+            background-color: #ffa45c;
+            transform: scale(1.1);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-more {
+            background-color:  #ffa45c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-more:hover {
+            background-color: #138496;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-md-5">
         <div class="page-title">Gallery of Paintings</div> <!-- Page title added here -->
+        <p>This page features a collection of various artworks under the lens of three types of colorblindness, protanopia, deuteranopia, and tritanopia. </p>
+        <p>Click “more” for an in-depth look of each painting.</p>
+        <p>Click the “+” symbol at the right corner to share your own artwork to the community.</p>
+
+        <!-- Filter Controls -->
+        <div class="d-flex justify-content-end mb-4">
+            <form class="form-inline">
+                <label class="mr-2" for="filter_by">Filter by:</label>
+                <select class="form-control mr-2" id="filter_by" name="filter_by" onchange="this.form.submit()">
+                    <option value="" {% if not filter_by %}selected{% endif %}>All</option>
+                    <option value="Drawings and Paintings" {% if filter_by == 'Drawings and Paintings' %}selected{% endif %}>Drawings and Paintings</option>
+                    <option value="Digital Art" {% if filter_by == 'Digital Art' %}selected{% endif %}>Digital Art</option>
+                    <option value="Photography" {% if filter_by == 'Photography' %}selected{% endif %}>Photography</option>
+                    <option value="Mixed Media" {% if filter_by == 'Mixed Media' %}selected{% endif %}>Mixed Media</option>
+                    <option value="3D Art" {% if filter_by == '3D Art' %}selected{% endif %}>3D Art</option>
+                    <option value="Other" {% if filter_by == 'Other' %}selected{% endif %}>Other</option>
+                </select>
+            </form>
+        </div>
+
         {% for image in images %}
         <div class="painting p-4">
             <h1 class="text-center">{{ image.title }}</h1>
-            <p class="description">{{ image.description }}</p>
+            <p class="description">By: {{ image.author }}</p>
             <div class="row">
                 <div class="col-12 col-md-3 image-container">
-                    <img src="{{ url_for('static', filename='images/normal/' + image.username + '_n_' + image.filepath.split('/')[-1]) }}" alt="Original Image">
+                    <img src="{{ url_for('uploaded_file', filename=image['filepath'].split('/')[-1]) }}" alt="Original Image">
                     <p class="text-center">Normal</p>
                 </div>
-                <div class="col-12 col-md-3 image-container">
-                    <img src="{{ url_for('static', filename='images/protanopia/' + image.username + '_p_' + image.filepath.split('/')[-1]) }}" alt="Protanopia Image">
-                    <p class="text-center">Protanopia</p>
-                </div>
-                <div class="col-12 col-md-3 image-container">
-                    <img src="{{ url_for('static', filename='images/deuteranopia/' + image.username + '_d_' + image.filepath.split('/')[-1]) }}" alt="Deuteranopia Image">
-                    <p class="text-center">Deuteranopia</p>
-                </div>
-                <div class="col-12 col-md-3 image-container">
-                    <img src="{{ url_for('static', filename='images/tritanopia/' + image.username + '_t_' + image.filepath.split('/')[-1]) }}" alt="Tritanopia Image">
-                    <p class="text-center">Tritanopia</p>
-                </div>
+<div class="col-12 col-md-3 image-container">
+    <img src="{{ url_for('static', filename='images/normal/' + image.username + '_n_' + image.filepath.split('/')[-1]) }}" alt="Original Image">
+    <p class="text-center">Normal</p>
+</div>
+<div class="col-12 col-md-3 image-container">
+    <img src="{{ url_for('static', filename='images/protanopia/' + image.username + '_p_' + image.filepath.split('/')[-1]) }}" alt="Protanopia Image">
+    <p class="text-center">Protanopia</p>
+</div>
+<div class="col-12 col-md-3 image-container">
+    <img src="{{ url_for('static', filename='images/deuteranopia/' + image.username + '_d_' + image.filepath.split('/')[-1]) }}" alt="Deuteranopia Image">
+    <p class="text-center">Deuteranopia</p>
+</div>
+<div class="col-12 col-md-3 image-container">
+    <img src="{{ url_for('static', filename='images/tritanopia/' + image.username + '_t_' + image.filepath.split('/')[-1]) }}" alt="Tritanopia Image">
+    <p class="text-center">Tritanopia</p>
+</div>
+
             </div>
+            <div class="text-center mt-3">
+                <a href="{{ url_for('more', image_id=image.id) }}" class="btn btn-more">More</a>
+            </div>
+            {% if admin %}
+            <div class="text-center mt-3">
+                <button class="btn btn-danger delete-button" data-image-id="{{ image.id }}">Delete</button>
+            </div>
+            {% endif %}
         </div>
         {% endfor %}
 
-        <div class="pagination">
+        <div class="pagination mb-5">
             {% if page > 1 %}
-                <a href="{{ url_for('shop', page=page-1) }}">Previous</a>
+                <a href="{{ url_for('shop', page=page-1, filter_by=filter_by) }}">Previous</a>
             {% endif %}
 
             {% for p in range(1, total_pages + 1) %}
-                <a href="{{ url_for('shop', page=p) }}" class="{{ 'active' if p == page else '' }}">{{ p }}</a>
+                <a href="{{ url_for('shop', page=p, filter_by=filter_by) }}" class="{{ 'active' if p == page else '' }}">{{ p }}</a>
             {% endfor %}
 
             {% if page < total_pages %}
-                <a href="{{ url_for('shop', page=page+1) }}">Next</a>
+                <a href="{{ url_for('shop', page=page+1, filter_by=filter_by) }}">Next</a>
             {% endif %}
         </div>
     </div>
+    <a href="{{ url_for('upload') }}" class="btn-add">
+        <i class="bi bi-plus-lg"></i>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.description[data-upload-date]').forEach(function (element) {
+                var dateStr = element.getAttribute('data-upload-date');
+                var date = new Date(dateStr);
+                var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2);
+                element.textContent = 'Uploaded At: ' + formattedDate;
+            });
+
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-button').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var imageId = this.getAttribute('data-image-id');
+                    if (confirm('Are you sure you want to delete this painting?')) {
+                        fetch(`/delete_image/${imageId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            }
+                        }).then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Reload the page to reflect the changes
+                                window.location.reload();
+                            } else {
+                                alert('Failed to delete the painting.');
+                            }
+                        }).catch(error => {
+                            console.error('Error:', error);
+                            alert('Failed to delete the painting.');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 {% endblock %}
 </html>
