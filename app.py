@@ -49,31 +49,36 @@ def generate_unique_filename(filename, username):
 
 @app.route('/shop')
 def shop():
-    isLogin = False
-    if 'user' in session:
-        isLogin = True
-
+    isLogin = 'user' in session
+    admin = isLogin and isAdmin()
     page = request.args.get('page', 1, type=int)
+    filter_by = request.args.get('filter_by', '', type=str)
     per_page = 4
     offset = (page - 1) * per_page
 
-    sort_by = request.args.get('sort_by', 'upload_date')
-    sort_order = request.args.get('sort_order', 'desc')
-    admin = isAdmin()
-    if sort_by not in ['upload_date', 'title']:
-        sort_by = 'upload_date'
-    if sort_order not in ['asc', 'desc']:
-        sort_order = 'desc'
-
     conn = get_db_connection()
-    query = f'SELECT * FROM images WHERE status = "accepted" ORDER BY {sort_by} {sort_order} LIMIT ? OFFSET ?'
-    images = conn.execute(query, (per_page, offset)).fetchall()
-    total_images = conn.execute('SELECT COUNT(*) FROM images WHERE status = "accepted"').fetchone()[0]
-    conn.close()
+    if filter_by:
+        images = conn.execute(
+            'SELECT * FROM images WHERE status = "accepted" AND type = ? ORDER BY upload_date DESC LIMIT ? OFFSET ?',
+            (filter_by, per_page, offset)
+        ).fetchall()
+        total_images = conn.execute(
+            'SELECT COUNT(*) FROM images WHERE status = "accepted" AND type = ?',
+            (filter_by,)
+        ).fetchone()[0]
+    else:
+        images = conn.execute(
+            'SELECT * FROM images WHERE status = "accepted" ORDER BY upload_date DESC LIMIT ? OFFSET ?',
+            (per_page, offset)
+        ).fetchall()
+        total_images = conn.execute(
+            'SELECT COUNT(*) FROM images WHERE status = "accepted"'
+        ).fetchone()[0]
 
+    conn.close()
     total_pages = (total_images + per_page - 1) // per_page
 
-    return render_template('shop.html', isLogin=isLogin, images=images, page=page, total_pages=total_pages, sort_by=sort_by, sort_order=sort_order,admin=admin)
+    return render_template('shop.html', isLogin=isLogin, admin=admin, images=images, page=page, total_pages=total_pages, filter_by=filter_by)
 
 @app.route('/delete_image/<int:image_id>', methods=['POST'])
 def delete_image(image_id):
@@ -250,6 +255,7 @@ def upload_image():
     filename = secure_filename(image.filename)
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     image.save(filepath)
+    changeImage(image, session["user"], filename)
 
     conn = get_db_connection()
     conn.execute('INSERT INTO images (title, author, description, type, filepath, username, status, upload_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
